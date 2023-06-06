@@ -1,23 +1,32 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { Amplify } from "aws-amplify";
-import "@aws-amplify/ui-react/styles.css";
-
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
+import { useState, useRef } from "react";
+import TodoList from "./TodoList";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
+	const [todos, setTodos] = useState([
+		{ id: 1, name: "Todo1", completed: false },
+	]);
+
+	const handleAddTodo = (e) => {
+		// タスクを追加する
+		const name = todoNameRef.current.value;
+		setTodos((prevTodos) => {
+			return [...prevTodos, { id: uuidv4(), name: name, completed: false }];
+		});
+		todoNameRef.current.value = null;
+	};
+
+	const todoNameRef = useRef();
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h2>Hello React App with AWS</h2>
-			</header>
+		<div>
+			<TodoList todos={todos} />
+			<input type="text" ref={todoNameRef} />
+			<button onClick={handleAddTodo}>タスクを追加</button>
+			<button>完了したタスクの削除</button>
+			<div>残りのタスク：0</div>
 		</div>
 	);
 }
 
 export default App;
-
-// https://youtu.be/m9ZjW1md_OQ?t=770
-// 必ずこのディレクトリに移動してから実行すること
