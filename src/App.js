@@ -3,9 +3,7 @@ import TodoList from "./TodoList";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
-	const [todos, setTodos] = useState([
-		{ id: 1, name: "Todo1", completed: false },
-	]);
+	const [todos, setTodos] = useState([]);
 
 	const handleAddTodo = (e) => {
 		// タスクを追加する
