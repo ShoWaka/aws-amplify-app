@@ -6,7 +6,7 @@ function App() {
 	const [todos, setTodos] = useState([]);
 
 	const handleAddTodo = (e) => {
-		// タスクを追加する
+		// タスクを追加する機能
 		const name = todoNameRef.current.value;
 
 		if (name === "") return;
